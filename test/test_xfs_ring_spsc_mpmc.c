@@ -252,6 +252,8 @@ void test_xfs_ring_sole_producer_sole_comsumer_enqueue(void)
 	TEST_ASSERT_EQUAL(false, ret);
 	TEST_ASSERT_EQUAL(ring->info->consume_pointer.head, (ring->info->product_pointer.head + 1) & ring->info->mask);
 
+	// 测试结束,释放资源
+	free_ring(ring);
 }
 
 void test_xfs_ring_sole_producer_sole_comsumer_enqueue0(void)
