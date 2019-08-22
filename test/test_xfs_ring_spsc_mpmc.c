@@ -1,5 +1,18 @@
 #include <stdint.h> // C11标准定长整数类型uint32_t
 #include <unity.h>
+#include <cmock.h>
+#include "mock_xfs_log.h"
+
+#include <stdio.h>
+
+void fake_xfs_log(unsigned int _error_file, int _error_code, log_level _error_level, int callcnt)
+{
+	printf("This is %s() func\n", __func__);
+	printf("备注: fake_xfs_log() 函数第 callcnt = %d次被调用\n", callcnt);
+	fflush(stdout);
+	return;
+}
+
 // 无锁环状队列相关头文件 xfs_ring
 #include "ring/xfs_ring.h"
 #include "ring/lockfree/xfs_ring_c11model.h"
@@ -12,6 +25,7 @@
 
 void setUp(void)
 {
+	xfs_log_StubWithCallback(fake_xfs_log);
 	return;
 }
 
